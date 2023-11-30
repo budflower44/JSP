@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +40,10 @@
 			<td>${bvo.content }</td>
 		</tr>
 	</table>
-	
+	<c:if test="${bvo.writer eq ses.id }">
 	<a href="/brd/modify?bno=${bvo.bno }"><button>수정</button></a>
 	<a href="/brd/remove?bno=${bvo.bno }"><button>삭제</button></a>
+	</c:if>
 	<a href="/brd/list"><button>리스트로 가기</button></a>
 </body>
 </html>

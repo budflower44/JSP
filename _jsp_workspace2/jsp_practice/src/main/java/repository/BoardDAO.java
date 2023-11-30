@@ -16,4 +16,8 @@ public interface BoardDAO {
 
 	int update(BoardVO bvo);
 
+	int delete(int bno);
+
+	List<BoardVO> mylist(String writer);
+
 }

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,7 +134,34 @@ public class BoardController extends HttpServlet {
 				log.info("edit error");
 			}
 			break;
-		
+		case "remove" : 
+			try {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				log.info("remove check 1");
+				isOk = bsv.remove(bno);
+				log.info("remove >> {} "+(isOk>0?"성공":"실패"));
+				destPage = "list";
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info("remove error");
+			}
+			break;
+			
+		case "mylist" : 
+			try {
+				String writer = request.getParameter("id");
+				log.info("mylist check 1");
+				List<BoardVO> list1 = bsv.mylist(writer);
+				log.info("list mvo >>>> {} "+list1);
+				request.setAttribute("list", list1);
+				
+				destPage="/board/list.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info("mylist error");
+			}
+			break;
+			
 		}
 		
 		//목적지 주소로 데이터를 전달(RequestDispatcher)

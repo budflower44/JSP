@@ -55,5 +55,19 @@ public class BoardDAOImpl implements BoardDAO {
 		if(isOk>0) {sql.commit();}
 		return isOk;
 	}
+
+	@Override
+	public int delete(int bno) {
+		log.info(">>>> delete check 3");
+		int isOk = sql.delete("BoardMapper.del", bno);
+		if(isOk>0) {sql.commit();}
+		return isOk;
+	}
+
+	@Override
+	public List<BoardVO> mylist(String writer) {
+		log.info(">>>> mylist check 3");
+		return sql.selectList("BoardMapper.mylist", writer);
+	}
 	
 }

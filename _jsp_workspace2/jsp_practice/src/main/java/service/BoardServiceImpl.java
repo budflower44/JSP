@@ -34,6 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO getDetail(int bno) {
 		log.info(">>>> detail check 2");
 		int isOk = bdao.readCountUpdate(bno);
+		log.info("readcount isOk "+(isOk>0?"성공":"실패"));
 		return bdao.selecOne(bno);
 	}
 
@@ -41,6 +42,18 @@ public class BoardServiceImpl implements BoardService {
 	public int edit(BoardVO bvo) {
 		log.info(">>>> edit check 2");
 		return bdao.update(bvo);
+	}
+
+	@Override
+	public int remove(int bno) {
+		log.info(">>>> remove check 2");
+		return bdao.delete(bno);
+	}
+
+	@Override
+	public List<BoardVO> mylist(String writer) {
+		log.info(">>>> mylist check 2");
+		return bdao.mylist(writer);
 	}
 	
 }
