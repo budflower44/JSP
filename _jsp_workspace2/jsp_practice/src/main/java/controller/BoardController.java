@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.BoardVO;
+import domain.PagingVO;
 import service.BoardService;
 import service.BoardServiceImpl;
 
@@ -83,6 +84,17 @@ public class BoardController extends HttpServlet {
 		case "list" : 
 			try {
 				log.info("list check 1");
+				//페이지네이션
+				PagingVO pgvo = new PagingVO(); //1/10/0
+				log.info("pgvo >>"+pgvo);
+				if(request.getParameter("pageNo")!=null) {
+					int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+					int qty = Integer.parseInt(request.getParameter("qty"));
+					String type = request.getParameter("type");
+					String keyword = request.getParameter("keyword");
+					log.info(">>>> pageNo / qty "+pageNo+" / "+type+" / "+keyword);
+					pgvo = new PagingV
+				}
 				List<BoardVO> list = bsv.getList();
 				log.info("list >>>> {} "+list);
 				request.setAttribute("list", list);
