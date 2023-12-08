@@ -19,4 +19,6 @@ public interface BoardService {
 
 	int getTotalCount(PagingVO pgvo);
 
+	int removeCommentAll(int bno);
+
 }

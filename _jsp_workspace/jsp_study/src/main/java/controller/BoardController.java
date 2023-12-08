@@ -328,6 +328,25 @@ public class BoardController extends HttpServlet {
 			try {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				log.info("remove check 1");
+				//댓글, 파일도 같이 삭제
+				
+				//파일 삭제
+				DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+				
+				BoardVO bvo = bsv.getDetail(bno);
+				
+				String imageFileName = bvo.getImageFile();
+				String savePath = getServletContext().getRealPath("/_fileUpload");
+				if(imageFileName != null) {
+					FileRemoveHandler fileRemoveHandler = new FileRemoveHandler();
+					int isDel = fileRemoveHandler.deleteFile(imageFileName, savePath);
+					log.info("isDel >>>> "+((isDel>0)?"OK":"Fail"));					
+				}
+				
+				//댓글 삭제 (boardService에서 직접 처리
+//				int isCommentDel = bsv.removeCommentAll(bno);
+//				log.info("CommentAllDelete >>>>"+((isCommentDel>0)?"OK":"Fail"));
+				//보드 삭제
 				isOk = bsv.remove(bno);
 				log.info("remove >>> {} ", isOk>0? "OK":"Fail");
 				

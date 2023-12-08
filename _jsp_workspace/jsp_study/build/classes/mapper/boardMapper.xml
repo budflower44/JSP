@@ -38,6 +38,7 @@
   	<delete id="del" parameterType="int">
   		delete from board where bno = #{bno}
   	</delete>
+  
   	
   	<sql id="search">
   		<if test="type != null">

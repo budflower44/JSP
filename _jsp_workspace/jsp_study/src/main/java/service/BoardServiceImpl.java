@@ -9,12 +9,15 @@ import domain.BoardVO;
 import domain.PagingVO;
 import repository.BoardDAO;
 import repository.BoardDAOImpl;
+import repository.CommentDAO;
+import repository.CommentDAOImpl;
 
 public class BoardServiceImpl implements BoardService {
 	
 	private static final Logger log = 
 			LoggerFactory.getLogger(BoardServiceImpl.class);
 	private BoardDAO bdao; //interface 생성
+	CommentDAO cdao;
 	
 	public BoardServiceImpl() {
 		bdao = new BoardDAOImpl(); //class로 생성 bdao 구현 객체 생성
@@ -49,6 +52,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int remove(int bno) {
 		log.info(">>>> remove check 2");
+		//지우기 전에 댓글 삭제하고 글 지우기
+		CommentServiceImpl csv = new CommentServiceImpl();
+		int isOk = csv.removeAll(bno);
 		return bdao.delete(bno);
 	}
 
@@ -56,5 +62,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotalCount(PagingVO pgvo) {
 		log.info(">>>> totalCount check 2");
 		return bdao.totalCount(pgvo);
+	}
+
+	@Override
+	public int removeCommentAll(int bno) {
+		log.info(">>>> removeCommentAll check 2");
+		cdao = new CommentDAOImpl();
+		return cdao.removeCommentAll(bno);
 	}
 }

@@ -79,5 +79,6 @@ public class BoardDAOImpl implements BoardDAO {
 		log.info(">>>> totalCount check 3");
 		return sql.selectOne("BoardMapper.totalCount", pgvo);
 	}
+
 	
 }
