@@ -29,6 +29,22 @@
 		</c:forEach>
 	</table>
 	
+	<!-- 페이지네이션 표시 구역 -->
+	<div>
+		<!-- prev -->
+		<c:if test="${ph.prev }">
+			<a href="/brd/list?pageNo=${ph.startPage -1}&pty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}"> ← | </a>
+		</c:if>
+		<!-- paging -->
+		<c:forEach begin="${ph.startPage}" end="${ph.endPage }" var="i">
+			<a href="/brd/list?pageNo=${i}&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}"> ${i} </a>
+		</c:forEach>
+		<!-- next -->
+		<c:if test="${ph.next}">
+			<a href="/brd/list?pageNo=${ph.endPage+1}&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}"> | → </a>
+		</c:if>
+	</div>
+	
 	<a href="/index.jsp"><button type="button">처음으로</button></a>
 	<a href="/brd/write"><button type="button">글쓰기</button></a>
 		

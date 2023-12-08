@@ -11,8 +11,7 @@ public class DatabaseBuilder {
 	
 	static {
 		try {
-			factory = new SqlSessionFactoryBuilder()
-					.build(Resources.getResourceAsReader(CONFIG));
+			factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(CONFIG));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

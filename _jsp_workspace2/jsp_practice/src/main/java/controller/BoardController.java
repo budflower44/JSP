@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import domain.BoardVO;
 import domain.PagingVO;
+import handler.PagingHandler;
 import service.BoardService;
 import service.BoardServiceImpl;
 
@@ -87,17 +88,25 @@ public class BoardController extends HttpServlet {
 				//페이지네이션
 				PagingVO pgvo = new PagingVO(); //1/10/0
 				log.info("pgvo >>"+pgvo);
-				if(request.getParameter("pageNo")!=null) {
-					int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+				//검색
+				if(request.getParameter("PageNo") != null) {
+					int pageNo = Integer.parseInt(request.getParameter("PageNo"));
 					int qty = Integer.parseInt(request.getParameter("qty"));
 					String type = request.getParameter("type");
 					String keyword = request.getParameter("keyword");
-					log.info(">>>> pageNo / qty "+pageNo+" / "+type+" / "+keyword);
-					pgvo = new PagingV
+					log.info(">>>> PageNo/qty/type/keyword "+pageNo+" / "+qty+" / "+type+" / "+keyword);
 				}
-				List<BoardVO> list = bsv.getList();
+				
+				
+				List<BoardVO> list = bsv.getList(pgvo);
 				log.info("list >>>> {} "+list);
 				request.setAttribute("list", list);
+				
+				int totalCount = bsv.getTotalCount(); //DB에서 전체 게시글 수 가져오기
+				log.info("totalCount >>>> {} "+totalCount);
+				PagingHandler ph = new PagingHandler(pgvo, totalCount);
+				request.setAttribute("ph", ph);
+				
 				destPage = "/board/list.jsp";
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -3,12 +3,13 @@ package repository;
 import java.util.List;
 
 import domain.BoardVO;
+import domain.PagingVO;
 
 public interface BoardDAO {
 
 	int insert(BoardVO bvo);
 
-	List<BoardVO> selectAll();
+	List<BoardVO> selectAll(PagingVO pgvo);
 
 	BoardVO selecOne(int bno);
 
@@ -19,5 +20,7 @@ public interface BoardDAO {
 	int delete(int bno);
 
 	List<BoardVO> mylist(String writer);
+
+	int getTotalCount();
 
 }
