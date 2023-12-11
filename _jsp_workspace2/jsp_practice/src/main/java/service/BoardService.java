@@ -19,6 +19,6 @@ public interface BoardService {
 
 	List<BoardVO> mylist(String writer);
 
-	int getTotalCount();
+	int getTotalCount(PagingVO pgvo);
 
 }

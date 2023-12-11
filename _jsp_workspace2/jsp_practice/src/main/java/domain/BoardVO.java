@@ -18,6 +18,7 @@ public class BoardVO {
 	private String regdate;
 	private String moddate;
 	private int readcount;
+	private String imageFile;
 	
 	public BoardVO() {}
 	
@@ -42,10 +43,12 @@ public class BoardVO {
 		this.readcount = readcount;
 	}
 	//글 리스트 보기(list) : bno, title, writer, content, regdate, moddate, readcount
-	public BoardVO(int bno, String title, String writer, String content, String regdate, String moddate, int readcount) {
+	public BoardVO(int bno, String title, String writer, String content, String regdate, 
+			String moddate, int readcount, String imageFile) {
 		this(bno, title, writer, moddate, readcount);
 		this.content = content;
 		this.regdate = regdate;
+		this.imageFile = imageFile;
 	}
 	//글 삭제 : X
 	
@@ -105,13 +108,22 @@ public class BoardVO {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-	//toString
+
+	public String getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regdate="
-				+ regdate + ", moddate=" + moddate + ", readcount=" + readcount + "]";
+				+ regdate + ", moddate=" + moddate + ", readcount=" + readcount + ", imageFile=" + imageFile + "]";
 	}
+	
+	
 	
 	
 }

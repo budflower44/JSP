@@ -3,12 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="BoardMapper">
+  
   <insert id="add" parameterType="bvo">
   	insert into board(title, writer, content) values(#{title}, #{writer}, #{content})
   </insert>
   
   <select id="list" parameterType="pgvo" resultType="bvo">
-  	select * from board order by bno desc limit #{pageStart}, #{qty}
+  	select * from board 
+  	<include refid="search"></include>
+  	order by bno desc limit #{pageStart}, #{qty}
   </select>
   
   <select id="one" parameterType="int" resultType="bvo">
@@ -31,8 +34,30 @@
   	select * from board where writer=#{writer}
   </select>
   
-  <select id="cnt" resultType="int">
-  	select count(bno) from board
+  <select id="cnt" parameterType="pgvo" resultType="int">
+  	select count(bno) from board <include refid="search"></include>
   </select>
+  
+  <sql id="search">
+  	<if test="type != null">
+  		<trim prefix="where (" suffix=")" prefixOverrides="or">
+  			<foreach collection="typeToArray" item="type">
+  				<trim prefix="or">
+  					<choose>
+  						<when test="type == 't'.toString()">
+  							title like concat('%', #{keyword}, '%')
+  						</when>
+  						<when test="type == 'c'.toString()">
+  							title like concat('%', #{keyword}, '%')
+  						</when>
+  						<when test="type == 'w'.toString()">
+  							title like concat('%', #{keyword}, '%')
+  						</when>
+  					</choose>
+  				</trim>
+  			</foreach>
+  		</trim>
+  	</if>
+  </sql>
   
 </mapper>

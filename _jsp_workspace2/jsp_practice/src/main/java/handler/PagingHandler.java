@@ -4,7 +4,7 @@ import domain.PagingVO;
 
 public class PagingHandler {
 	//list 하단에 나오는 페이지네이션 핸들링 클래스
-	private int StartPage; //현재 화면에서 보여줄 시작 페이지네이션 번호
+	private int startPage; //현재 화면에서 보여줄 시작 페이지네이션 번호
 	private int endPage; //현재 화면에서 보여줄 끝 페이지네이션 번호
 	private int realEndPage; //실제 전체 리스트의 끝 번호
 	private boolean prev, next; //이전, 다음페이지 존재여부
@@ -20,8 +20,8 @@ public class PagingHandler {
 		this.totalCount = totalCount;
 		// 1/10 => 0.1 => (올림) 1 => 1*10 => 10
 		// 2/10 => 0.2 => (올림) 1 => 1*10 => 10
-		this.endPage = (int)Math.ceil(pgvo.getPageNo() / (double)pgvo.getPageNo() * pgvo.getQty());
-		this.StartPage = this.endPage -9;
+		this.endPage = (int)Math.ceil(pgvo.getPageNo() / (double)pgvo.getQty()) * pgvo.getQty();
+		this.startPage = this.endPage -9;
 		
 		//전체 게시글 수 / 한 화면에 게시되는 게시글 수 
 		// 101 / 10 -> 10.1 -> (올림) -> 11페이지
@@ -33,18 +33,21 @@ public class PagingHandler {
 		}
 		
 		//이전, 다음 유무
-		this.prev = this.StartPage > 1;
+		this.prev = this.startPage > 1;
 		this.next = this.endPage < this.realEndPage;
 		
 	}
 
+
 	public int getStartPage() {
-		return StartPage;
+		return startPage;
 	}
 
+
 	public void setStartPage(int startPage) {
-		StartPage = startPage;
+		this.startPage = startPage;
 	}
+
 
 	public int getEndPage() {
 		return endPage;
@@ -96,7 +99,7 @@ public class PagingHandler {
 
 	@Override
 	public String toString() {
-		return "PagingHandler [StartPage=" + StartPage + ", endPage=" + endPage + ", realEndPage=" + realEndPage
+		return "PagingHandler [StartPage=" + startPage + ", endPage=" + endPage + ", realEndPage=" + realEndPage
 				+ ", prev=" + prev + ", next=" + next + ", totalCount=" + totalCount + ", pgvo=" + pgvo + "]";
 	}
 	

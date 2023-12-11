@@ -65,6 +65,7 @@ public class PagingVO {
 		this.keyword = keyword;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "PagingVO [pageNo=" + pageNo + ", qty=" + qty + ", type=" + type + ", keyword=" + keyword + "]";

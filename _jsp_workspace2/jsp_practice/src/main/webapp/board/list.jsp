@@ -10,6 +10,28 @@
 <body>
 	<h1>List Page</h1>
 	<hr>
+	<!-- search line -->
+	<div>
+	<form action="/brd/list" method="get">
+		<c:set value="${ph.pgvo.type }" var="typed"></c:set>
+			<select name="type">
+				<option ${typed == null ? 'selected' : '' }>Choose...</option>
+				<option value="t" ${typed eq 't' ? 'selected' : '' }>title</option>
+				<option value="w" ${typed eq 'w' ? 'selected' : '' }>writer</option>
+				<option value="c" ${typed eq 'c' ? 'selected' : '' }>content</option>
+				<option value="tc" ${typed eq 'tc' ? 'selected' : '' }>title&content</option>
+				<option value="wc" ${typed eq 'wc' ? 'selected' : '' }>writer&content</option>
+				<option value="twc" ${typed eq 'twc' ? 'selected' : '' }>title&writer&content</option>			
+			</select>
+			<input type="text" name="keyword" placeholder="Search" value="${ph.pgvo.keyword }">
+			<input type="hidden" name="pageNo" value="1">
+			<input type="hidden" name="qty" value="${ph.pgvo.qty }">
+			<button type="submit">Search</button>
+			<span>${ph.totalCount }</span>
+	</form>
+	</div>
+	
+	<hr>
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -33,7 +55,7 @@
 	<div>
 		<!-- prev -->
 		<c:if test="${ph.prev }">
-			<a href="/brd/list?pageNo=${ph.startPage -1}&pty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}"> ← | </a>
+			<a href="/brd/list?pageNo=${ph.startPage-1}&qty=${ph.pgvo.qty}&type=${ph.pgvo.type}&keyword=${ph.pgvo.keyword}"> ← | </a>
 		</c:if>
 		<!-- paging -->
 		<c:forEach begin="${ph.startPage}" end="${ph.endPage }" var="i">
