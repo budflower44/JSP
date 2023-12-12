@@ -9,11 +9,13 @@ import domain.BoardVO;
 import domain.PagingVO;
 import repository.BoardDAO;
 import repository.BoardDAOImpl;
+import repository.CommentDAO;
 
 public class BoardServiceImpl implements BoardService {
 	
 	private static final Logger log = LoggerFactory.getLogger(BoardServiceImpl.class);
 	private BoardDAO bdao;
+	CommentDAO cdao;
 	
 	public BoardServiceImpl() {
 		bdao = new BoardDAOImpl();
@@ -48,6 +50,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int remove(int bno) {
 		log.info(">>>> remove check 2");
+		//지우기 전에 댓글 삭제하고 글 지우기
+		CommentServiceImpl csv = new CommentServiceImpl();
+		int isOk = csv.removeAll(bno);
 		return bdao.delete(bno);
 	}
 

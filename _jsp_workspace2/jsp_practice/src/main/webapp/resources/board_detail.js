@@ -1,5 +1,6 @@
 console.log("board_detail.js in~!!");
 console.log(bnoVal);
+console.log(id);
 
 //컨트롤러에서 리스트 달라고 요청
 async function getCommentListFromServer(bno){
@@ -22,11 +23,11 @@ function spreadCommentList(result){
         let html = `<div>`;
         html += `<div>${result[i].cno}, ${result[i].bno}, ${result[i].writer}, ${result[i].regdate}</div>`;
         html += `<div>`;
-        if(result[i].id==result[i].writer){
-            html += `<button type="button" data-cno="${result[i].cno}" class="cmtModBtn">수정</button>`;
-            html += `<button type="button" data-cno="${result[i].cno}" class="cmtDelBtn">삭제</button>`;
+        if(id==result[i].writer){
+            html += `<button type="button" data-cno="${result[i].cno}" class="cmtModBtn btn btn-primary">수정</button>`;
+            html += `<button type="button" data-cno="${result[i].cno}" class="cmtDelBtn btn btn-danger">삭제</button>`;
         }
-        html += `<div><input type="text" class="cmtText" value="${result[i].content}"></div>`;
+        html += `<div><input type="text" class="cmtText form-control" value="${result[i].content}"></div>`;
         html += `<hr>`;
         html += `</div></div>`;
         div.innerHTML += html; //각 댓글 객체를 누적해서 담기
